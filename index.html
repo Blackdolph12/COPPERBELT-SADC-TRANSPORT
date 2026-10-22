@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COPPERBELT SADC TRANSPORT - Real Tracking</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+body{background:#070a0f;color:white;padding:15px}
+.card{background:#111a2b;border:1px solid #1e3a5f;padding:20px;border-radius:14px;margin-bottom:15px}
+#map{height:520px;border-radius:14px;border:2px solid #1e3a5f;margin-top:10px}
+.border-row{padding:14px;margin:7px 0;border-radius:10px;display:flex;justify-content:space-between;align-items:center;background:#1a2c4a;font-size:13px}
+.cleared{background:#16a34a!important}
+.current{border:2px solid #ff8c00;background:#2a1f0f!important}
+select,button{width:100%;padding:12px;margin:5px 0;border-radius:8px}
+select{background:#0f1f3a;color:white;border:1px solid #1e3a5f}
+button{background:#ff8c00;color:#000;font-weight:900;border:none;cursor:pointer}
+.info{color:#9ca3af;font-size:12px;margin:4px 0}
+.info b{color:white}
+</style>
+</head>
+<body>
+
+<h1 style="font-size:22px">COPPERBELT SADC TRANSPORT</h1>
+<p style="color:#ff8c00;font-weight:700;margin:6px 0 15px 0">Congo - Zambia - Botswana - South Africa Corridor</p>
+
+<div class="card" style="border-color:#ff8c00">
+<h3>Driver / Admin - Update REAL Location Only</h3>
+<p class="info">Change this ONLY when truck really arrives at border</p>
+<select id="locSelect">
+<option value="0">0 - START: Kasumbalesa Border</option>
+<option value="1">1 - Ndola - Zambia</option>
+<option value="2">2 - Lusaka - Zambia</option>
+<option value="3">3 - Livingstone - Zambia</option>
+<option value="4">4 - Kazungula Border - Zambia / Botswana</option>
+<option value="5">5 - Kasane - Botswana</option>
+<option value="6">6 - Francistown - Botswana</option>
+<option value="7">7 - Gaborone - Botswana</option>
+<option value="8">8 - Tlokweng Border - Botswana / SA</option>
+<option value="9">9 - FINAL: Johannesburg Terminal - SA</option>
+</select>
+<select id="statusSelect">
+<option>WAITING DEPARTURE - Kasumbalesa</option>
+<option>IN TRANSIT - REAL GPS</option>
+<option>AT BORDER - CUSTOMS VERIFICATION</option>
+<option>ARRIVED JOHANNESBURG - DELIVERED ✓</option>
+</select>
+<button onclick="updateReal()">UPDATE REAL LOCATION</button>
+</div>
+
+<div class="card">
+<h3>Status: <span id="statusText" style="color:#ff8c00">WAITING DEPARTURE - Kasumbalesa</span></h3>
+<p class="info">Current: <b id="currentLoc">Kasumbalesa Border</b></p>
+<p class="info">Last Real Update: <b id="updateTime"></b></p>
+<div id="map"></div>
+</div>
+
+<div class="card">
+<h3>Route: Kasumbalesa → Johannesburg (Real Proof Only)</h3>
+<div id="borders"></div>
+</div>
+
+<script>
+let bordersData=[
+{name:"START: Kasumbalesa Border",coords:[-12.46,28.36]},
+{name:"Ndola - Zambia",coords:[-12.95,28.63]},
+{name:"Lusaka - Zambia",coords:[-15.41,28.28]},
+{name:"Livingstone - Zambia",coords:[-17.84,25.85]},
+{name:"Kazungula Border - Zambia / Botswana",coords:[-17.81,25.26]},
+{name:"Kasane - Botswana",coords:[-17.80,25.15]},
+{name:"Francistown - Botswana",coords:[-21.17,27.50]},
+{name:"Gaborone - Botswana",coords:[-24.62,25.90]},
+{name:"Tlokweng Border - Botswana / SA",coords:[-24.66,25.99]},
+{name:"FINAL: Johannesburg Terminal - SA",coords:[-26.20,28.04]}
+];
+let map=L.map('map').setView([-15.5,27.5],6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+L.polyline(bordersData.map(b=>b.coords),{color:'#ff8c00',weight:4,opacity:0.7}).addTo(map);
+let truckIcon=L.divIcon({html:'<div style="font-size:34px">🚛</div>',className:'',iconSize:[34,34]});
+let truckMarker=L.marker(bordersData[0].coords,{icon:truckIcon}).addTo(map);
+let currentIdx=0;
+function render(){
+ let html="";
+ bordersData.forEach((b,i)=>{
+  let cls=i<currentIdx?"cleared":(i==currentIdx?"current":"");
+  let status=i<currentIdx?"✓ PASSED (REAL)":(i==currentIdx?"● CURRENT LOCATION":"◷ PENDING");
+  html+=`<div class="border-row ${cls}"><span>${b.name}</span><span style="font-weight:700">${status}</span></div>`;
+ });
+ document.getElementById("borders").innerHTML=html;
+ document.getElementById("currentLoc").innerText=bordersData[currentIdx].name;
+ truckMarker.setLatLng(bordersData[currentIdx].coords);
+ map.panTo(bordersData[currentIdx].coords);
+ document.getElementById("updateTime").innerText=new Date().toLocaleString();
+}
+function updateReal(){
+ currentIdx=parseInt(document.getElementById("locSelect").value);
+ let st=document.getElementById("statusSelect").value;
+ document.getElementById("statusText").innerText=st;
+ localStorage.setItem("csadc_idx",currentIdx);
+ localStorage.setItem("csadc_status",st);
+ render();
+}
+if(localStorage.getItem("csadc_idx")){
+ currentIdx=parseInt(localStorage.getItem("csadc_idx"));
+ document.getElementById("statusText").innerText=localStorage.getItem("csadc_status");
+}
+render();
+</script>
+</body>
+</html>
