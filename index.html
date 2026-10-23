@@ -1,211 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COPPERBELT SADC TRANSPORT - World Class Freight</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COPPERBELT SADC TRANSPORT - TRACK</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
-body{background:#f8fafc}
-header{background:white;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.06);position:sticky;top:0;z-index:1000}
-.logo{font-weight:900;font-size:18px;color:#0f172a;line-height:1}
-.logo span{color:#0b79bf;font-size:12px;display:block;letter-spacing:2px}
-.menu{display:flex;gap:20px;font-size:13px;font-weight:600}
-.menu a{text-decoration:none;color:#334155}
-.hero{background:linear-gradient(120deg,#0f172a 0%, #1e3a5f 100%);color:white;padding:50px 20px;text-align:center}
-.hero h1{font-size:38px;font-weight:900;line-height:1.1}
-.hero h1 b{color:#38bdf8;display:block}
-.hero p{color:#94a3b8;margin-top:12px;font-size:14px;max-width:600px;margin-left:auto;margin-right:auto}
-.track-box{background:white;max-width:650px;margin:-30px auto 20px;border-radius:14px;padding:18px;display:flex;gap:0;box-shadow:0 10px 30px rgba(0,0,0,.15);overflow:hidden}
-.track-box input{flex:1;padding:16px;border:2px solid #e2e8f0;border-right:none;border-radius:10px 0 0 10px;outline:none;font-weight:600}
-.track-box button{background:#0b79bf;color:white;border:none;padding:0 28px;border-radius:0 10px 10px 0;font-weight:900;cursor:pointer}
-.container{max-width:1100px;margin:0 auto;padding:0 14px}
-.card{background:white;border-radius:14px;padding:20px;margin:14px 0;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.timeline{position:relative;padding-left:30px}
-.timeline::before{content:'';position:absolute;left:11px;top:0;bottom:0;width:2px;background:#e2e8f0}
-.step{position:relative;margin:18px 0;display:flex;justify-content:space-between;gap:10px}
-.step::before{content:'';position:absolute;left:-26px;top:6px;width:14px;height:14px;border-radius:50%;background:white;border:3px solid #cbd5e1}
-.step.active::before{background:#0b79bf;border-color:#0b79bf}
-.step.done::before{background:#16a34a;border-color:#16a34a}
-.date{font-size:12px;color:#64748b;min-width:90px}
-.desc{flex:1}
-.desc b{display:block;font-size:13px}
-.desc span{font-size:11px;color:#0b79bf;cursor:pointer}
-#map{height:320px;border-radius:12px;margin-top:10px}
-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
-th{background:#f1f5f9;text-align:left;padding:10px;border:1px solid #e2e8f0;font-size:11px;color:#64748b}
-td{padding:10px;border:1px solid #e2e8f0}
-.badge{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800}
-.b-green{background:#dcfce7;color:#16a34a}
-.b-blue{background:#dbeafe;color:#0b79bf}
-.b-orange{background:#ffedd5;color:#c2410c}
-.admin{background:#0f172a;color:white}
-.admin select,.admin input{width:100%;padding:12px;margin:6px 0;border-radius:8px;background:#1e293b;color:white;border:1px solid #334155}
-.admin button{width:100%;padding:12px;border:none;border-radius:8px;font-weight:900;margin-top:6px;cursor:pointer}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{background:#f5f5f5}
+.header{background:white;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 5px rgba(0,0,0,.1);position:sticky;top:0;z-index:100}
+.logo{font-weight:900;font-size:20px;color:#0b2a4a;line-height:.9} .logo span{color:#0b79bf;font-weight:400;font-size:11px;letter-spacing:2px;display:block}
+.menu-btn{background:#0b79bf;color:white;border:none;padding:8px 12px;border-radius:4px;font-size:18px}
+.track-banner{height:260px;background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1000');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.track-banner h1{color:white;font-size:42px;font-weight:900;letter-spacing:2px}
+.track-banner .line{width:50px;height:3px;background:#0b79bf;margin-top:12px}
+.track-box-wrap{background:white;padding:30px 16px;display:flex;justify-content:center}
+.track-box{display:flex;max-width:700px;width:100%;border:1px solid #ddd;border-radius:4px;overflow:hidden}
+.track-box input{flex:1;padding:14px 16px;border:none;background:#222;color:white;font-size:15px;outline:none}
+.track-box input::placeholder{color:#aaa}
+.track-box button{background:#0b79bf;color:white;border:none;padding:0 28px;font-weight:900;font-size:14px;cursor:pointer;letter-spacing:1px}
+.result-wrap{background:#111;color:white;padding:0}
+.product-id{text-align:center;padding:20px 0 10px;color:#aaa;font-size:14px} .product-id b{color:white}
+.status-top{display:flex;justify-content:center;gap:10px;margin-bottom:18px}
+.st{padding:6px 14px;border-radius:4px;font-size:11px;font-weight:800} .st-blue{background:#0b79bf;color:white} .st-gray{background:#333;color:#ccc}
+.timeline{position:relative;max-width:600px;margin:0 auto;padding:20px 16px 40px}
+.timeline::before{content:'';position:absolute;left:68px;top:20px;bottom:40px;width:2px;background:#333}
+.t-item{display:flex;gap:14px;margin-bottom:34px;position:relative}
+.t-date{width:54px;text-align:right;font-size:12px;color:#aaa;line-height:1.3} .t-date b{color:white;display:block;font-size:11px}
+.t-icon{width:38px;height:38px;background:#0b79bf;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:2;flex-shrink:0;border:3px solid #111;font-size:16px}
+.t-content{flex:1} .t-content b{font-size:13px} .t-content span{color:#0b79bf;font-size:11px;display:block;margin-top:4px;cursor:pointer}
+.info-section{background:#111;padding:16px}
+.info-title{font-size:14px;margin:18px 0 10px;display:flex;align-items:center;gap:6px;color:white}
+.info-table{width:100%;border-collapse:collapse;background:#1a1a1a}
+.info-table th{background:#222;color:#aaa;font-size:11px;padding:10px;text-align:left;border:1px solid #333}
+.info-table td{padding:10px;border:1px solid #333;font-size:12px;color:#ddd}
+.contact{background:#111;padding:30px 16px;color:#aaa}
+.contact h3{color:white;margin-bottom:14px;font-size:16px}
+.contact p{font-size:12px;line-height:1.6;margin-bottom:14px}
+.admin-panel{background:#0f172a;padding:20px;margin:20px 12px;border-radius:8px}
+.admin-panel h3{color:white;font-size:14px;margin-bottom:10px}
+.admin-panel input,.admin-panel select{width:100%;padding:12px;margin:6px 0;border-radius:6px;background:#1e293b;color:white;border:1px solid #334155}
+.admin-panel button{width:100%;padding:12px;border-radius:6px;border:none;font-weight:900;margin-top:8px;cursor:pointer}
 </style>
 </head>
 <body>
+<div class="header"><div class="logo">COPPERBELT<br><span>SADC TRANSPORT</span></div><button class="menu-btn">☰</button></div>
+<div class="track-banner"><h1>TRACK</h1><div class="line"></div></div>
+<div class="track-box-wrap"><div class="track-box"><input id="trackInput" placeholder="Insert tracking number"><button onclick="doTrack()">TRACK IT</button></div></div>
 
-<header>
-<div class="logo">COPPERBELT<br><span>SADC TRANSPORT</span></div>
-<div class="menu">
-<a href="#">Home</a><a href="#">Services ▾</a><a href="#">About</a><a href="#" style="color:#0b79bf">Track</a>
-</div>
-</header>
+<div id="invalid" style="display:none;background:#111;color:white;text-align:center;padding:40px"><h2 style="color:#ef4444">⛔ INVALID TRACKING</h2><p id="invalidMsg" style="margin-top:10px;color:#aaa"></p></div>
 
-<div class="hero">
-<h1>We are committed to be the leading <b>WORLD CLASS FREIGHT</b></h1>
-<p>Real-time Copper Corridor - Kasumbalesa DRC to Johannesburg SA via Zambia & Botswana</p>
-</div>
+<div id="result" style="display:none" class="result-wrap">
+<div class="product-id">Product ID: <b id="pid"></b></div>
+<div class="status-top"><span class="st st-blue">ACCEPT</span><span class="st st-gray">ORDER PROCESSING ></span></div>
+<div id="timeline" class="timeline"></div>
 
-<div class="track-box">
-<input id="trackInput" placeholder="Insert tracking number e.g. 07256B2A">
-<button onclick="doTrack()">TRACK IT</button>
-</div>
+<div class="info-section">
+<div class="info-title">👤 Shipper Information</div>
+<table class="info-table"><tr><th>Shipper Name</th><th>Phone</th><th>Address</th><th>Email</th></tr><tr><td id="sName"></td><td id="sPhone">-</td><td id="sAddr"></td><td id="sEmail">-</td></tr></table>
 
-<div class="container">
-<div class="card" id="resultCard">
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-<h3>Product ID: <span id="pid">07256B2A</span></h3>
-<div><span id="mainBadge" class="badge b-blue">IN TRANSIT</span></div>
+<div class="info-title">👤 Receiver Information</div>
+<table class="info-table"><tr><th>Receiver Name</th><th>Phone</th><th>Address</th><th>Email</th></tr><tr><td id="rName"></td><td id="rPhone">-</td><td id="rAddr"></td><td id="rEmail">-</td></tr></table>
+
+<div class="info-title">📦 Shipment Information</div>
+<table class="info-table" id="shipTable"></table>
 </div>
 
-<div style="margin:12px 0;display:flex;gap:8px">
-<span class="badge b-green">ACCEPTED</span> → <span class="badge b-blue">ORDER PROCESSING → SHIPPED</span>
+<div class="contact"><h3>Contact Us</h3><p>Kasumbalesa DRC / Zambia Border<br>Lusaka, Zambia / Gaborone Botswana<br>Johannesburg Terminal SA<br>info@copperbeltsadctransport.com</p><p style="font-size:11px;color:#666">© 2017-2026 COPPERBELT SADC TRANSPORT</p></div>
 </div>
 
-<div class="timeline" id="timeline"></div>
-<div id="map"></div>
-</div>
-
-<div class="card">
-<h3>👤 Shipper Information</h3>
-<table>
-<tr><th>Shipper Name</th><th>Phone</th><th>Address</th><th>Email</th></tr>
-<tr><td id="sName">Gabriel Mulumba</td><td>Private</td><td id="sAddr">Kolwezi / Goma RDC</td><td>Private</td></tr>
-</table>
-</div>
-
-<div class="card">
-<h3>📦 Receiver Information</h3>
-<table>
-<tr><th>Receiver Name</th><th>Phone</th><th>Address</th><th>Email</th></tr>
-<tr><td id="rName">Takalani Mazini</td><td>Private</td><td id="rAddr">Houtkoppen 33, Rustenburg 0299</td><td>Private</td></tr>
-</table>
-</div>
-
-<div class="card">
-<h3>📋 Shipment Information</h3>
-<table id="shipTable"></table>
-</div>
-
-<div class="card admin">
-<h3>🔒 ADMIN CONTROL - Update Real Delivery (Like Xandros)</h3>
-<select id="locSel"></select>
-<select id="statSel">
-<option>Cargo Received - KASUMBALESA</option>
-<option>Enroute - KASUMBALESA</option>
-<option>Processing - CHIRUNDU BORDER</option>
-<option>Enroute - CHIRUNDU BORDER</option>
-<option>Processing - BEITBRIDGE BORDER</option>
-<option>Delivered - JOHANNESBURG</option>
+<div class="admin-panel">
+<h3>🔒 ADMIN - Update Copper Route</h3>
+<input id="admTrack" placeholder="Tracking e.g. 07256B2A">
+<input id="admGoods" placeholder="Goods e.g. Semi Refined Copper">
+<input id="admQty" placeholder="Quantity e.g. 20 Tons">
+<input id="admRoute" placeholder="Route e.g. Kasumbalesa → Zambia → Botswana → Johannesburg">
+<input id="admDate" type="date">
+<select id="admStatus">
+<option value="0">Cargo Received - KASUMBALESA DRC</option>
+<option value="1">Enroute - KASUMBALESA</option>
+<option value="2">Processing - KAZUNGULA (Zambia/Botswana)</option>
+<option value="3">Enroute - FRANCISTOWN Botswana</option>
+<option value="4">Processing - MARTINS DRIFT (Botswana/SA)</option>
+<option value="5">Processing - JOHANNESBURG TERMINAL FINAL</option>
 </select>
-<input id="newPid" placeholder="New Tracking ID (e.g. 07256B2A)">
-<button onclick="updateShipment()" style="background:#0b79bf;color:white">UPDATE & PUSH TO CUSTOMER</button>
-<button onclick="genId()" style="background:#ff8c00;color:black">GENERATE NEW TRACKING ID</button>
-</div>
+<button onclick="updateAll()" style="background:#0b79bf;color:white">UPDATE TRACKING</button>
+<button onclick="genId()" style="background:#f59e0b;color:black">GENERATE NEW ID</button>
+<p id="admMsg" style="color:#22c55e;font-size:12px;margin-top:8px"></p>
 </div>
 
 <script>
-let borders=[
-{name:"KASUMBALESA",date:"Jul 05, 2026 - 10:00",status:"Cargo Received",c:[-12.46,28.36]},
-{name:"KASUMBALESA",date:"Jul 05, 2026 - 14:05",status:"Enroute",c:[-12.95,28.63]},
-{name:"CHIRUNDU BORDER",date:"Jul 06, 2026 - 12:45",status:"Processing",c:[-16.03,28.85]},
-{name:"CHIRUNDU BORDER",date:"Jul 06, 2026 - 15:15",status:"Enroute",c:[-17.5,27.5]},
-{name:"BEITBRIDGE BORDER",date:"Jul 07, 2026 - 07:30",status:"Processing",c:[-22.22,29.98]},
-{name:"JOHANNESBURG",date:"Jul 08, 2026 - 10:00",status:"Delivered",c:[-26.20,28.04]}
+let timelineData=[
+{date:"Jul 05, 2025",time:"10:00",title:"Cargo Received",loc:"KASUMBALESA DRC",icon:"📦"},
+{date:"Jul 05, 2025",time:"14:05",title:"Enroute",loc:"KASUMBALESA ZAMBIA",icon:"🚚"},
+{date:"Jul 06, 2025",time:"12:45",title:"Processing",loc:"KAZUNGULA BORDER - Zambia/Botswana",icon:"🛃"},
+{date:"Jul 06, 2025",time:"15:15",title:"Enroute",loc:"CHIRUNDU → FRANCISTOWN BOTSWANA",icon:"🚚"},
+{date:"Jul 07, 2025",time:"07:30",title:"Processing",loc:"MARTINS DRIFT BORDER - Botswana/SA",icon:"🛃"},
+{date:"Jul 08, 2025",time:"09:00",title:"Delivered",loc:"JOHANNESBURG TERMINAL",icon:"✅"}
 ];
 
-let map=L.map('map').setView([-16,28],5);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-let line=L.polyline(borders.map(b=>b.c),{color:'#0b79bf',weight:4}).addTo(map);
-let icon=L.divIcon({html:'<div style="font-size:30px">🚛</div>',className:'',iconSize:[30,30]});
-let marker=L.marker(borders[0].c,{icon}).addTo(map);
+let DB=JSON.parse(localStorage.getItem("CBT_XANDROS")||`{
+"07256B2A":{"sName":"Gabriel Mulumba","sAddr":"Goma/RDC","rName":"Takalani Zacharia Masindi","rAddr":"12 Houtkoppen Avenue Cashan 33 Rustenburg 0299","goods":"Semi Refined Gold(Au)","qty":"4kg","weight":"4kg","courier":"XDL","pkg":"Box","mode":"TruckLoad","pay":"Cash","total":"70441902","carrier":"XDL","origin":"Kasumbalesa / DRC","dest":"South Africa","pickDate":"July 05, 2025","pickTime":"10:00","status":"accepted","expDate":"July 08, 2025","agent":"Mulele","type":"Road Freight","idx":2}
+}`);
 
-let curIdx=parseInt(localStorage.getItem("x_idx")||0);
-let curTrack=localStorage.getItem("x_track")||"07256B2A";
-
-function render(){
- document.getElementById("pid").innerText=curTrack;
- document.getElementById("trackInput").value=curTrack;
- let tl=document.getElementById("timeline");
- tl.innerHTML="";
- borders.forEach((b,i)=>{
-   let cls=i<curIdx?"done":i==curIdx?"active":"";
-   tl.innerHTML+=`<div class="step ${cls}"><div class="date">${b.date}</div><div class="desc"><b>${b.status}</b>${b.name}<span onclick="map.flyTo([${b.c}],7)"> view on map</span></div><div class="badge ${i<=curIdx?'b-green':'b-orange'}">${i<=curIdx?'Done':'Pending'}</div></div>`;
- });
- marker.setLatLng(borders[curIdx].c);
- map.panTo(borders[curIdx].c);
- document.getElementById("mainBadge").innerText=borders[curIdx].status.toUpperCase();
- // shipment table
- let shipInfo=[
- ["Tracking Number",curTrack],
- ["Carrier","COPPERBELT SADC"],
- ["Packages","Box"],
- ["Product","Semi Refined Copper / Gold"],
- ["Quantity","4kg - 20 Tons"],
- ["Weight","4kg"],
- ["Payment Mode","Cash"],
- ["Origin","Kasumbalesa / DRC"],
- ["Destination","South Africa - Johannesburg"],
- ["Pickup Date","Jul 05, 2026"],
- ["Delivery Expected","Jul 08, 2026"],
- ["Status",borders[curIdx].status],
- ["Current Location",borders[curIdx].name],
- ["Agent Name","DOLPH M."],
- ["Type","Road Freight - SADC Corridor"]
- ];
- let html="";
- shipInfo.forEach(r=>{html+=`<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`});
- document.getElementById("shipTable").innerHTML=html;
-}
-
-function initAdmin(){
- let sel=document.getElementById("locSel");
- borders.forEach((b,i)=>{let o=document.createElement("option");o.value=i;o.text=b.name+" - "+b.status;sel.appendChild(o);});
- sel.value=curIdx;
-}
-function updateShipment(){
- curIdx=parseInt(document.getElementById("locSel").value);
- let stat=document.getElementById("statSel").value;
- borders[curIdx].status=stat.split(" - ")[0];
- let np=document.getElementById("newPid").value.trim().toUpperCase();
- if(np) curTrack=np;
- localStorage.setItem("x_idx",curIdx);
- localStorage.setItem("x_track",curTrack);
- render();
- alert("Updated Boss! Customer sees: "+stat);
-}
-function genId(){
- let id=Math.floor(10000+Math.random()*90000)+"B2A";
- document.getElementById("newPid").value=id;
- curTrack=id;
- localStorage.setItem("x_track",id);
- render();
-}
 function doTrack(){
  let v=document.getElementById("trackInput").value.trim().toUpperCase();
  if(!v) return alert("Insert tracking number");
- curTrack=v;
- localStorage.setItem("x_track",v);
- render();
+ if(!DB[v]){ document.getElementById("result").style.display="none"; document.getElementById("invalid").style.display="block"; document.getElementById("invalidMsg").innerText="Tracking "+v+" not found"; return; }
+ document.getElementById("invalid").style.display="none"; document.getElementById("result").style.display="block";
+ let d=DB[v]; document.getElementById("pid").innerText=v;
+ document.getElementById("sName").innerText=d.sName; document.getElementById("sAddr").innerText=d.sAddr;
+ document.getElementById("rName").innerText=d.rName; document.getElementById("rAddr").innerText=d.rAddr;
+ let tl=""; timelineData.forEach((t,i)=>{
+  if(i>d.idx) return;
+  tl+=`<div class="t-item"><div class="t-date">${t.date}<b>${t.time}</b></div><div class="t-icon">${t.icon}</div><div class="t-content"><b>${t.title}</b><br>${t.loc}<span>view on map</span></div></div>`;
+ }); document.getElementById("timeline").innerHTML=tl;
+ document.getElementById("shipTable").innerHTML=`
+ <tr><th>Weight</th><td>${d.weight}</td><th>Courier</th><td>${d.courier}</td></tr>
+ <tr><th>Packages</th><td>${d.pkg}</td><th>Mode</th><td>${d.mode}</td></tr>
+ <tr><th>Product</th><td>${d.goods}</td><th>Quantity</th><td>${d.qty}</td></tr>
+ <tr><th>Payment Mode</th><td>${d.pay}</td><th>Total Freight</th><td></td></tr>
+ <tr><th>Carrier</th><td>${d.carrier}</td><th>Carrier Reference Number</th><td>${d.total}</td></tr>
+ <tr><th>Departure Time</th><td>${d.pickTime}</td><th>Origin</th><td>${d.origin}</td></tr>
+ <tr><th>Destination</th><td>${d.dest}</td><th>Pickup Date</th><td>${d.pickDate}</td></tr>
+ <tr><th>Pickup Time</th><td>${d.pickTime}</td><th>Status</th><td>${d.status}</td></tr>
+ <tr><th>Expected Delivery Date</th><td>${d.expDate}</td><th>Comments</th><td></td></tr>
+ <tr><th>Agent Name</th><td>${d.agent}</td><th>Type of Shipment</th><td>${d.type}</td></tr>`;
+ window.scrollTo({top:400,behavior:'smooth'});
+ document.getElementById("admTrack").value=v; document.getElementById("admGoods").value=d.goods;
 }
-
-initAdmin();
-render();
+function updateAll(){
+ let code=document.getElementById("admTrack").value.trim().toUpperCase(); if(!code) return alert("Enter tracking");
+ let idx=parseInt(document.getElementById("admStatus").value);
+ DB[code]={...DB[code], goods:document.getElementById("admGoods").value||DB[code].goods, qty:document.getElementById("admQty").value||DB[code].qty, idx:idx, expDate:document.getElementById("admDate").value||DB[code].expDate};
+ localStorage.setItem("CBT_XANDROS",JSON.stringify(DB));
+ document.getElementById("admMsg").innerText="✅ Updated "+code+" - Now at "+timelineData[idx].loc;
+ doTrack();
+}
+function genId(){ let id=Math.floor(10000+Math.random()*90000)+"B2A"; document.getElementById("admTrack").value=id; document.getElementById("admMsg").innerText="New ID: "+id+" - Fill and UPDATE"; }
 </script>
 </body>
 </html>
