@@ -1,95 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COPPERBELT SADC TRANSPORT - Real-time Tracking</title>
+<title>COPPERBELT SADC TRANSPORT</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#0f172a;color:white;max-width:480px;margin:0 auto}
-.topbar{background:#0f172a;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
-.logoBar{background:#131c33;padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #1e293b}
-.logoIcon{width:44px;height:44px;background:#c49a6c;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #e6b07a}
-.logoText{font-weight:900;font-size:15px;line-height:1.1} .logoText span{font-weight:600;font-size:15px}
-.hero{position:relative;height:170px;background:url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800') center/cover}
-.hero::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.45)}
-.heroContent{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.hero h1{font-size:42px;font-weight:900;letter-spacing:2px} .hero p{font-size:11px;color:#cbd5e1;margin-top:2px}
-.searchWrap{background:#131c33;padding:16px}
-.searchLabel{font-size:12px;color:#94a3b8;margin-bottom:8px}
-.searchBox{display:flex;gap:8px}
-.searchBox input{flex:1;background:#0f172a;border:1px solid #1e293b;color:white;padding:12px 14px;border-radius:10px;font-size:14px;outline:none}
-.searchBox button{background:#3b82f6;color:white;border:none;padding:0 18px;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:4px}
-.resultCard{background:#131c33;margin:12px;border-radius:14px;padding:14px;border:1px solid #1e293b}
-.validHead{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.badgeValid{background:#16a34a;color:white;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:900}
-.pid{font-size:11px;color:#94a3b8;margin-bottom:12px} .pid b{color:white}
-.statusRow{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
-.st{padding:6px 10px;border-radius:6px;font-size:10px;font-weight:800}
-.st-green{background:#16a34a} .st-blue{background:#2563eb}
-.divider{height:1px;background:#1e293b;margin:12px 0}
-.timelineTitle{font-size:15px;font-weight:800;margin-bottom:10px}
-.timeline{position:relative;padding-left:16px}
-.timeline::before{content:'';position:absolute;left:5px;top:5px;bottom:20px;width:2px;background:#f97316;opacity:.5}
-.t-item{display:flex;gap:10px;margin-bottom:12px;position:relative}
-.t-dot{width:14px;height:14px;border-radius:50%;background:#1e293b;border:2px solid #f97316;z-index:2;flex-shrink:0;margin-left:-22px}
-.t-dot.done{background:#22c55e;border-color:#22c55e}
-.t-date{font-size:10px;color:#94a3b8;min-width:84px} .t-info{font-size:10px} .t-info b{font-size:11px;color:white;display:block}
-.t-loc{font-size:10px;color:#94a3b8;text-transform:uppercase}
-.t-final{margin-top:2px;background:#22c55e;color:white;font-size:8px;padding:2px 6px;border-radius:4px;display:inline-block;font-weight:900}
-.infoTitle{font-size:14px;font-weight:800;margin:18px 0 8px}
-.infoRow{display:flex;background:#0f172a;border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:11px}
-.infoRow .k{width:110px;color:#94a3b8} .infoRow .v{flex:1;color:white;font-weight:600}
-.shipBox{background:#0f172a;border-radius:10px;padding:10px;border:1px solid #1e293b}
-.shipRow{display:flex;font-size:11px;padding:5px 0;border-bottom:1px solid #1e293b0d} .shipRow:last-child{border:none}
-.shipRow .k{width:110px;color:#94a3b8} .shipRow .v{flex:1;color:white;font-weight:600}
-.foot{font-size:9px;color:#64748b;text-align:center;padding:14px;background:#0f172a;margin-top:12px;border-radius:10px}
-.invalid{background:#131c33;margin:12px;border-radius:14px;padding:30px;text-align:center;border:1px solid #1e293b}
-.invalid h2{color:#ef4444;font-size:18px}
-.adminTrigger{text-align:center;padding:10px}
-.adminTrigger button{background:none;border:1px dashed #334155;color:#475569;padding:6px 14px;border-radius:20px;font-size:10px;cursor:pointer}
-#adminBox{display:none;background:#0f172a;margin:12px;border-radius:12px;padding:14px;border:1px solid #1e293b}
-#adminBox input,#adminBox select{width:100%;padding:10px;margin:4px 0;border-radius:8px;background:#131c33;color:white;border:1px solid #334155;font-size:12px}
-#adminBox button{width:100%;padding:11px;border-radius:8px;border:none;font-weight:800;margin-top:6px;cursor:pointer}
+.topbar{padding:8px 12px;display:flex;justify-content:space-between;font-size:12px;color:#94a3b8}
+.logoBar{background:#131c33;padding:12px 14px;display:flex;gap:10px;align-items:center}
+.logoIcon{width:40px;height:40px;background:#c49a6c;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.hero{height:150px;background:url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800') center/cover;position:relative;display:flex;align-items:center;justify-content:center}
+.hero::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.5)}
+.hero div{z-index:2;text-align:center}.hero h1{font-size:38px;font-weight:900}.hero p{font-size:10px;color:#cbd5e1}
+.searchWrap{background:#131c33;padding:14px}
+.searchLabel{font-size:11px;color:#94a3b8;margin-bottom:6px}
+.searchBox{display:flex;gap:6px}
+.searchBox input{flex:1;background:#0f172a;border:1px solid #1e293b;color:white;padding:11px;border-radius:8px}
+.searchBox button{background:#3b82f6;color:white;border:none;padding:0 14px;border-radius:8px;font-weight:800;font-size:11px;cursor:pointer}
+.card{background:#131c33;margin:10px;border-radius:12px;padding:12px;border:1px solid #1e293b}
+.pid{font-size:11px;color:#94a3b8} .pid b{color:white}
+.stRow{display:flex;gap:6px;justify-content:center;margin:10px 0}
+.st{padding:5px 8px;border-radius:6px;font-size:10px;font-weight:800}
+.stG{background:#16a34a} .stB{background:#2563eb}
+.timeline{position:relative;padding-left:20px;margin-top:10px}
+.timeline::before{content:'';position:absolute;left:6px;top:5px;bottom:10px;width:2px;background:#f97316}
+.t-item{margin-bottom:14px;position:relative}
+.t-dot{position:absolute;left:-19px;top:0;width:12px;height:12px;background:#22c55e;border-radius:50%;border:2px solid #0f172a}
+.t-date{font-size:10px;color:#94a3b8} .t-b{font-size:11px;font-weight:800;color:white} .t-loc{font-size:9px;color:#94a3b8;text-transform:uppercase}
+.infoT{font-size:12px;font-weight:800;margin:14px 0 6px}
+.row{display:flex;background:#0f172a;border-radius:6px;padding:7px 8px;margin-bottom:4px;font-size:10px}
+.k{width:90px;color:#94a3b8} .v{flex:1;color:white;font-weight:600}
+.foot{font-size:8px;color:#64748b;text-align:center;padding:10px;background:#0f172a;margin-top:10px;border-radius:8px}
+#adminBox{display:none;background:#0f172a;margin:10px;border-radius:10px;padding:12px;border:1px solid #1e293b}
+#adminBox input,#adminBox select{width:100%;padding:9px;margin:3px 0;border-radius:6px;background:#131c33;color:white;border:1px solid #334155;font-size:11px}
+#adminBox button{width:100%;padding:10px;border-radius:6px;border:none;font-weight:800;margin-top:4px}
 </style>
 </head>
 <body>
-<div class="topbar"><span>10:09</span><span>5G 📶 87%</span></div>
-<div class="logoBar"><div class="logoIcon">🚛</div><div class="logoText">COPPERBELT<br>SADC TRANSPORT</div></div>
-<div class="hero"><div class="heroContent"><h1>TRACK</h1><p>Real-time shipment tracking across SADC region</p></div></div>
+<div class="topbar"><span>13:42</span><span>LTE 45</span></div>
+<div class="logoBar"><div class="logoIcon">🚛</div><div><b>COPPERBELT</b><br>SADC TRANSPORT</div></div>
+<div class="hero"><div><h1>TRACK</h1><p>Real-time shipment tracking across SADC region</p></div></div>
+<div class="searchWrap"><div class="searchLabel">Enter Tracking Number</div><div class="searchBox"><input id="trackInput" value="072568ZA"><button onclick="doTrack()">TRACK IT 🔍</button></div></div>
 
-<div class="searchWrap">
-<div class="searchLabel">Enter Tracking Number</div>
-<div class="searchBox"><input id="trackInput" placeholder="072568ZA" value="072568ZA"><button onclick="doTrack()">TRACK IT 🔍</button></div>
+<div id="result" class="card">
+<div style="display:flex;gap:6px;align-items:center"><span style="background:#22c55e;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:12px">✔</span><span style="color:#22c55e;font-weight:900;font-size:11px">VALID</span><b style="font-size:12px;margin-left:4px">Tracking Result</b></div>
+<div class="pid" style="margin-top:8px">Product ID: <b id="pid">072568ZA</b></div>
+<div class="stRow"><span class="st stG">✔ ACCEPT</span><span class="st stB">🕒 ORDER PROCESSING</span></div>
+<div style="height:1px;background:#1e293b;margin:10px 0"></div>
+<div style="font-weight:800;font-size:13px">Shipment Timeline</div>
+<div id="timeline" class="timeline"></div>
+<div style="height:1px;background:#1e293b;margin:10px 0"></div>
+<div class="infoT">Shipper Information</div><div class="row"><div class="k">Shipper Name</div><div class="v" id="sName">Gabriel Mulumba</div></div>
+<div class="infoT">Receiver Information</div><div class="row"><div class="k">Receiver Name</div><div class="v" id="rName">Takalani Masindi — Rustenburg</div></div>
+<div class="infoT">Shipment Information</div><div id="shipBox"></div>
+<div class="foot">COPPERBELT SADC TRANSPORT • Left Wednesday → Arrived Sunday Johannesburg • Updated Sun Oct 26, 17:42 SAST</div>
 </div>
 
-<div id="invalid" style="display:none" class="invalid"><h2>⛔ INVALID TRACKING</h2><p id="invalidMsg" style="color:#94a3b8;font-size:12px;margin-top:8px"></p></div>
-
-<div id="result" class="resultCard">
-<div class="validHead"><span style="background:#22c55e;border-radius:50%;padding:4px">✅</span><span style="color:#22c55e;font-weight:900;font-size:12px">VALID</span><b style="margin-left:6px;font-size:13px">Tracking Result</b></div>
-<div class="pid">Product ID: <b id="pid">072568ZA</b></div>
-<div class="statusRow"><span class="st st-green">✔ ACCEPT</span><span class="st st-blue">🕒 ORDER PROCESSING</span></div>
-<div class="divider"></div>
-<div class="timelineTitle">Shipment Timeline</div>
-<div id="timeline"></div>
-<div class="divider"></div>
-<div class="infoTitle">Shipper Information</div>
-<div class="infoRow"><div class="k">Shipper Name</div><div class="v" id="sName">Gabriel Mulumba</div></div>
-<div class="infoTitle">Receiver Information</div>
-<div class="infoRow"><div class="k">Receiver Name</div><div class="v" id="rName">Takalani Masindi — Rustenburg</div></div>
-<div class="infoTitle">Shipment Information</div>
-<div class="shipBox" id="shipBox"></div>
-<div class="foot">COPPERBELT SADC TRANSPORT • Tracking updated <span id="updateDate">Sun Oct 26, 17:42 SAST</span></div>
-</div>
-
-<div class="adminTrigger"><button onclick="openAdmin()">Admin Login</button></div>
-
+<div style="text-align:center;padding:8px"><button onclick="openAdmin()" style="background:none;border:1px dashed #334155;color:#475569;padding:5px 12px;border-radius:20px;font-size:9px">Admin Login</button></div>
 <div id="adminBox">
-<h4 style="font-size:12px;margin-bottom:8px">🔒 ADMIN - Copper Route Wednesday → Sunday</h4>
-<input id="admTrack" placeholder="Tracking e.g. 48924B2A">
-<input id="admSName" placeholder="Shipper e.g. Gabriel Mulumba">
-<input id="admRName" placeholder="Receiver e.g. Takalani Masindi">
-<input id="admGoods" placeholder="Goods e.g. Semi Refined Copper 20 Tons">
-<input id="admQty" placeholder="Quantity e.g. 20 Tons">
-<select id="admStatus">
-<option value="0">WED Oct 22 08:30 Cargo Received KASUMBALESA DRC - Left Wednesday</option>
-<option value="1">WED Oct 22 
+<input id="admTrack" placeholder="Tracking ID e.g. 48924B2A">
+<input id="admSName" placeholder="Shipper">
+<input id="admRName" placeholder="Receiver">
+<input id="admGoods" placeholder="Goods e.g. Copper 20 Tons">
+<select id="admStatus"><option value="5">SUNDAY - Delivered Johannesburg FINAL - Sunday</option><option value="0">WED - Cargo Received Kasumbalesa</option><option value="1">WED - Enroute Zambia</option><option value="2">THU - Lusaka</option><option value="3">FRI - Kazungula Botswana</option><option value="4">SAT - Martins Drift SA</option></select>
+<button onclick="updateAll()" style="background:#3b82f6;color:white">SAVE</button>
+<p id="admMsg" style="color:#22c55e;font-size:10px;margin-top:6px"></p>
+</div>
+
+<script>
+// HARDCODED - NO CACHE - WILL SHOW 100%
+let timelineData=[
+{date:"Wed Oct 22 08:30",title:"Cargo Received",loc:"KASUMBALESA DRC - Left Wednesday"},
+{date:"Wed Oct 22 14:20",title:"Enroute",loc:"KASUMBALESA → ZAMBIA"},
+{date:"Thu Oct 23 11:00",title:"Processing",loc:"LUSAKA ZAMBIA"},
+{date:"Fri Oct 24 13:45",title:"Processing",loc:"KAZUNGULA BORDER — Zambia/Botswana - Botswana Terminal"},
+{date:"Sat Oct 25 08:30",title:"Processing",loc:"MARTINS DRIFT BORDER — Botswana/SA"},
+{date:"Sun Oct 26 09:00",title:"Delivered",loc:"JOHANNESBURG TERMINAL — SUNDAY FINAL"}
+];
+
+let DB={
+"072568ZA":{sName:"Gabriel Mulumba",rName:"Takalani Masindi — Rustenburg",goods:"Semi Refined Copper 20 Tons",qty:"20 Tons",weight:"20 Tons",origin:"Kasumbalesa DRC",dest:"Johannesburg",exp:"Sun Oct 26 • Sunday",idx:5},
+"48924B2A":{sName:"Kasumbalesa Mine DRC",rName:"Johannesburg Refinery — Rustenburg",goods:"Semi Refined Copper 20 Tons",qty:"20 Tons",weight:"20 Tons",origin:"Kasumbalesa → Zambia → Botswana",dest:"Johannesburg - Sunday",exp:"Sun Oct 26 • Sunday",idx:5},
+"07256B2A":{sName:"Gabriel Mulumba",rName:"Takalani Masindi",goods:"Semi Refined Copper 20 Tons",qty:"20 Tons",weight:"20 Tons",origin:"Kasumbalesa",dest:"Johannesburg",exp:"Sun Oct 26 • Sunday",idx:5}
+};
+
+function doTrack(){
+ let v=document.getElementById("trackInput").value.trim().toUpperCase()||"072568ZA";
+ let d=DB[v]; if(!d){ alert("Invalid - Use 072568ZA or 48924B2A"); return; }
+ document.getElementById("pid").innerText=v;
+ document.getElementById("sName").innerText=d.sName;
+ document.getElementById("rName").innerText=d.rName;
+ let tl=""; timelineData.forEach((t,i)=>{ if(i>d.idx) return; tl+=`<div class="t-item"><div class="t-dot"></div><div class="t-date">${t.date}</div><div class="t-b">${t.title}</div><div class="t-loc">${t.loc}</div></div>`; });
+ document.getElementById("timeline").innerHTML=tl;
+ document.getElementById("shipBox").innerHTML=`<div class="row"><div class="k">Weight</div><div class="v">${d.weight}</div></div><div class="row"><div class="k">Product</div><div class="v">${d.goods}</div></div><div class="row"><div class="k">Quantity</div><div class="v">${d.qty}</div></div><div class="row"><div class="k">Origin</div><div class="v">${d.origin}</div></div><div class="row"><div class="k">Destination</div><div class="v">${d.dest}</div></div><div class="row"><div class="k">Expected</div><div class="v">${d.exp}</div></div>`;
+}
+function openAdmin(){ let p=prompt("Password:"); if(p==="CBT2026") document.getElementById("adminBox").style.display="block"; }
+function updateAll(){ let c=document.getElementById("admTrack").value.toUpperCase(); if(!c) return; DB[c]={sName:document.getElementById("admSName").value||"Gabriel",rName:document.getElementById("admRName").value||"Takalani",goods:document.getElementById("admGoods").value||"Copper 20 Tons",qty:"20 Tons",weight:"20 Tons",origin:"Kasumbalesa",dest:"Johannesburg",exp:"Sun Oct 26 Sunday",idx:parseInt(document.getElementById("admStatus").value)}; document.getElementById("admMsg").innerText="Saved "+c; document.getElementById("trackInput").value=c; doTrack(); }
+window.onload=doTrack;
+</script>
+</body>
+</html>
