@@ -16,12 +16,8 @@ body{background:#0f172a;color:white;max-width:480px;margin:0 auto}
 .searchLabel{font-size:11px;color:#94a3b8;margin-bottom:6px}
 .searchBox{display:flex;gap:6px}
 .searchBox input{flex:1;background:#0f172a;border:1px solid #1e293b;color:white;padding:11px;border-radius:8px}
-.searchBox button{background:#3b82f6;color:white;border:none;padding:0 14px;border-radius:8px;font-weight:800;font-size:11px;cursor:pointer}
+.searchBox button{background:#3b82f6;color:white;border:none;padding:0 14px;border-radius:8px;font-weight:800;font-size:11px}
 .card{background:#131c33;margin:10px;border-radius:12px;padding:12px;border:1px solid #1e293b}
-.pid{font-size:11px;color:#94a3b8} .pid b{color:white}
-.stRow{display:flex;gap:6px;justify-content:center;margin:10px 0}
-.st{padding:5px 8px;border-radius:6px;font-size:10px;font-weight:800}
-.stG{background:#16a34a} .stB{background:#2563eb}
 .timeline{position:relative;padding-left:20px;margin-top:10px}
 .timeline::before{content:'';position:absolute;left:6px;top:5px;bottom:10px;width:2px;background:#f97316}
 .t-item{margin-bottom:14px;position:relative}
@@ -37,30 +33,29 @@ body{background:#0f172a;color:white;max-width:480px;margin:0 auto}
 </style>
 </head>
 <body>
-<div class="topbar"><span>13:42</span><span>LTE 45</span></div>
+<div class="topbar"><span>13:47</span><span>LTE 44</span></div>
 <div class="logoBar"><div class="logoIcon">🚛</div><div><b>COPPERBELT</b><br>SADC TRANSPORT</div></div>
 <div class="hero"><div><h1>TRACK</h1><p>Real-time shipment tracking across SADC region</p></div></div>
 <div class="searchWrap"><div class="searchLabel">Enter Tracking Number</div><div class="searchBox"><input id="trackInput" value="072568ZA"><button onclick="doTrack()">TRACK IT 🔍</button></div></div>
 
 <div id="result" class="card">
 <div style="display:flex;gap:6px;align-items:center"><span style="background:#22c55e;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:12px">✔</span><span style="color:#22c55e;font-weight:900;font-size:11px">VALID</span><b style="font-size:12px;margin-left:4px">Tracking Result</b></div>
-<div class="pid" style="margin-top:8px">Product ID: <b id="pid">072568ZA</b></div>
-<div class="stRow"><span class="st stG">✔ ACCEPT</span><span class="st stB">🕒 ORDER PROCESSING</span></div>
+<div style="font-size:11px;color:#94a3b8;margin-top:8px">Product ID: <b style="color:white" id="pid">072568ZA</b></div>
+<div style="display:flex;gap:6px;justify-content:center;margin:10px 0"><span style="background:#16a34a;padding:5px 8px;border-radius:6px;font-size:10px;font-weight:800">✔ ACCEPT</span><span style="background:#2563eb;padding:5px 8px;border-radius:6px;font-size:10px;font-weight:800">🕒 ORDER PROCESSING</span></div>
 <div style="height:1px;background:#1e293b;margin:10px 0"></div>
 <div style="font-weight:800;font-size:13px">Shipment Timeline</div>
 <div id="timeline" class="timeline"></div>
 <div style="height:1px;background:#1e293b;margin:10px 0"></div>
-<div class="infoT">Shipper Information</div><div class="row"><div class="k">Shipper Name</div><div class="v" id="sName">Gabriel Mulumba</div></div>
-<div class="infoT">Receiver Information</div><div class="row"><div class="k">Receiver Name</div><div class="v" id="rName">Takalani Masindi — Rustenburg</div></div>
+
+<!-- NAMES REMOVED - ONLY SHIPMENT INFO -->
 <div class="infoT">Shipment Information</div><div id="shipBox"></div>
+
 <div class="foot">COPPERBELT SADC TRANSPORT • Left Wednesday → Arrived Sunday Johannesburg • Updated Sun Oct 26, 17:42 SAST</div>
 </div>
 
 <div style="text-align:center;padding:8px"><button onclick="openAdmin()" style="background:none;border:1px dashed #334155;color:#475569;padding:5px 12px;border-radius:20px;font-size:9px">Admin Login</button></div>
 <div id="adminBox">
 <input id="admTrack" placeholder="Tracking ID e.g. 48924B2A">
-<input id="admSName" placeholder="Shipper">
-<input id="admRName" placeholder="Receiver">
 <input id="admGoods" placeholder="Goods e.g. Copper 20 Tons">
 <select id="admStatus"><option value="5">SUNDAY - Delivered Johannesburg FINAL - Sunday</option><option value="0">WED - Cargo Received Kasumbalesa</option><option value="1">WED - Enroute Zambia</option><option value="2">THU - Lusaka</option><option value="3">FRI - Kazungula Botswana</option><option value="4">SAT - Martins Drift SA</option></select>
 <button onclick="updateAll()" style="background:#3b82f6;color:white">SAVE</button>
@@ -68,7 +63,6 @@ body{background:#0f172a;color:white;max-width:480px;margin:0 auto}
 </div>
 
 <script>
-// HARDCODED - NO CACHE - WILL SHOW 100%
 let timelineData=[
 {date:"Wed Oct 22 08:30",title:"Cargo Received",loc:"KASUMBALESA DRC - Left Wednesday"},
 {date:"Wed Oct 22 14:20",title:"Enroute",loc:"KASUMBALESA → ZAMBIA"},
@@ -77,25 +71,20 @@ let timelineData=[
 {date:"Sat Oct 25 08:30",title:"Processing",loc:"MARTINS DRIFT BORDER — Botswana/SA"},
 {date:"Sun Oct 26 09:00",title:"Delivered",loc:"JOHANNESBURG TERMINAL — SUNDAY FINAL"}
 ];
-
 let DB={
-"072568ZA":{sName:"Gabriel Mulumba",rName:"Takalani Masindi — Rustenburg",goods:"Semi Refined Copper 20 Tons",qty:"20 Tons",weight:"20 Tons",origin:"Kasumbalesa DRC",dest:"Johannesburg",exp:"Sun Oct 26 • Sunday",idx:5},
-"48924B2A":{sName:"Kasumbalesa Mine DRC",rName:"Johannesburg Refinery — Rustenburg",goods:"Semi Refined Copper 20 Tons",qty:"20 Tons",weight:"20 Tons",origin:"Kasumbalesa → Zambia → Botswana",dest:"Johannesburg - Sunday",exp:"Sun Oct 26 • Sunday",idx:5},
-"07256B2A":{sName:"Gabriel Mulumba",rName:"Takalani Masindi",goods:"Semi Refined Copper 20 Tons",qty:"20 Tons",weight:"20 Tons",origin:"Kasumbalesa",dest:"Johannesburg",exp:"Sun Oct 26 • Sunday",idx:5}
+"072568ZA":{goods:"Semi Refined Copper 20 Tons",qty:"20 Tons",weight:"20 Tons",origin:"Kasumbalesa DRC",dest:"Johannesburg",exp:"Sun Oct 26 • Sunday",idx:5},
+"48924B2A":{goods:"Semi Refined Copper 20 Tons",qty:"20 Tons",weight:"20 Tons",origin:"Kasumbalesa → Zambia → Botswana",dest:"Johannesburg - Sunday",exp:"Sun Oct 26 • Sunday",idx:5}
 };
-
 function doTrack(){
  let v=document.getElementById("trackInput").value.trim().toUpperCase()||"072568ZA";
  let d=DB[v]; if(!d){ alert("Invalid - Use 072568ZA or 48924B2A"); return; }
  document.getElementById("pid").innerText=v;
- document.getElementById("sName").innerText=d.sName;
- document.getElementById("rName").innerText=d.rName;
  let tl=""; timelineData.forEach((t,i)=>{ if(i>d.idx) return; tl+=`<div class="t-item"><div class="t-dot"></div><div class="t-date">${t.date}</div><div class="t-b">${t.title}</div><div class="t-loc">${t.loc}</div></div>`; });
  document.getElementById("timeline").innerHTML=tl;
  document.getElementById("shipBox").innerHTML=`<div class="row"><div class="k">Weight</div><div class="v">${d.weight}</div></div><div class="row"><div class="k">Product</div><div class="v">${d.goods}</div></div><div class="row"><div class="k">Quantity</div><div class="v">${d.qty}</div></div><div class="row"><div class="k">Origin</div><div class="v">${d.origin}</div></div><div class="row"><div class="k">Destination</div><div class="v">${d.dest}</div></div><div class="row"><div class="k">Expected</div><div class="v">${d.exp}</div></div>`;
 }
 function openAdmin(){ let p=prompt("Password:"); if(p==="CBT2026") document.getElementById("adminBox").style.display="block"; }
-function updateAll(){ let c=document.getElementById("admTrack").value.toUpperCase(); if(!c) return; DB[c]={sName:document.getElementById("admSName").value||"Gabriel",rName:document.getElementById("admRName").value||"Takalani",goods:document.getElementById("admGoods").value||"Copper 20 Tons",qty:"20 Tons",weight:"20 Tons",origin:"Kasumbalesa",dest:"Johannesburg",exp:"Sun Oct 26 Sunday",idx:parseInt(document.getElementById("admStatus").value)}; document.getElementById("admMsg").innerText="Saved "+c; document.getElementById("trackInput").value=c; doTrack(); }
+function updateAll(){ let c=document.getElementById("admTrack").value.toUpperCase(); if(!c) return; DB[c]={goods:document.getElementById("admGoods").value||"Copper 20 Tons",qty:"20 Tons",weight:"20 Tons",origin:"Kasumbalesa",dest:"Johannesburg",exp:"Sun Oct 26 Sunday",idx:parseInt(document.getElementById("admStatus").value)}; document.getElementById("admMsg").innerText="Saved "+c; document.getElementById("trackInput").value=c; doTrack(); }
 window.onload=doTrack;
 </script>
 </body>
